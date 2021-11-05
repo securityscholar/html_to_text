@@ -5,17 +5,17 @@ import os
 from pathlib import Path
 from bs4 import BeautifulSoup
 
-for filepath in glob.iglob(r'C:Filepath/**/*.html', recursive=True):
+for filepath in glob.iglob(r'C:Filepath/**/*.html', recursive=True): #Change the filespath to your directory of files (this will also search subdirectories. 
     with open(filepath,  "r", encoding="UTF-8") as file: 
-        s = BeautifulSoup(file, 'html5')
-        s = s.get_text("\n\n") 
+        s = BeautifulSoup(file, 'html5') #import the html file as a BeautifulSoup Object
+        s = s.get_text("\n\n")
         s = s.replace("\n", ' ')
         s = s.replace("$", ' ')        
         s = re.sub(r'[0-9]+', '', s)
         s = s.replace("(", ' ')        
         s = s.replace(")", ' ')
         s = s.replace("  ", ' ')
-        s = re.sub("\s\s+" , " ", s)
-        s = re.sub('\s{2,}', ' ', s)
-    with open(filepath.replace('.html', '') + ".txt", "w", encoding='utf-8') as file:
+        s = re.sub("\s\s+" , " ", s) #remove extra spacing
+        s = re.sub('\s{2,}', ' ', s) #remove extra spacing
+    with open(filepath.replace('.html', '') + ".txt", "w", encoding='utf-8') as file: #This removes the .html from the file and saves it as a .txt file
         file.write(s)
